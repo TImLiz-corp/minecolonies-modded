@@ -1,5 +1,7 @@
 package com.minecolonies.coremod;
 
+import com.ldtteam.multipiston.ModTileEntities;
+import com.ldtteam.multipiston.MultiPiston;
 import com.ldtteam.structurize.management.StructureName;
 import com.ldtteam.structurize.util.LanguageHandler;
 import com.ldtteam.structurize.util.StructureLoadingUtils;
@@ -14,6 +16,7 @@ import com.minecolonies.api.entity.mobs.RaiderMobUtils;
 import com.minecolonies.api.items.ModTags;
 import com.minecolonies.api.loot.ModLootConditions;
 import com.minecolonies.api.sounds.ModSoundEvents;
+import com.minecolonies.api.tileentities.MinecoloniesTileEntities;
 import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.apiimp.initializer.InteractionValidatorInitializer;
 import com.minecolonies.coremod.colony.IColonyManagerCapability;
@@ -29,6 +32,7 @@ import com.minecolonies.coremod.proxy.ServerProxy;
 import com.minecolonies.coremod.structures.EmptyColonyStructure;
 import com.minecolonies.coremod.structures.MineColoniesConfiguredStructures;
 import com.minecolonies.coremod.structures.MineColoniesStructures;
+import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +47,7 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
+import net.minecraftforge.event.datafix.ConfigureDataFixSchemaEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -109,6 +114,58 @@ public class MineColonies
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, MineColoniesStructures::addDimensionalSpacing);
         forgeBus.addListener(EventPriority.NORMAL, EmptyColonyStructure::setupStructureSpawns);
+    }
+
+    @SubscribeEvent
+    public static void onConfigureDatafixSchema(final ConfigureDataFixSchemaEvent event)
+    {
+        if (event.getSchema().getVersionKey() == DataFixUtils.makeKey(2717)) {
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(com.ldtteam.domumornamentum.util.Constants.MOD_ID, com.ldtteam.domumornamentum.util.Constants.BlockEntityTypes.MATERIALLY_RETEXTURABLE)
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "barrel")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "scarecrow")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "colonybuilding")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "decorationcontroller")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "rack")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "grave")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "namedgrave")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "composteddirt")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "enchanter")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "stash")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(Constants.MOD_ID, "colony_flag")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(com.ldtteam.structurize.api.util.constant.Constants.MOD_ID, "multipistonte")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(com.ldtteam.structurize.api.util.constant.Constants.MOD_ID, "tagsubstitution")
+            );
+            event.registerSimpleBlockEntity(
+              new ResourceLocation(MultiPiston.MOD_ID, "multipistonte")
+            );
+        }
     }
 
     /**
