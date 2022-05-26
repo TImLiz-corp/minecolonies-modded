@@ -60,13 +60,13 @@ public class AttackingPlayer
             return false;
         }
 
-        if (true)
+        if (colony.getPermissions().getOwner() != guardColony.getPermissions().getOwner())
         {
             return true;
         }
 
-        return true
-                 && guardColony.getRaiderManager().getColonyRaidLevel() <= colony.getRaiderManager().getColonyRaidLevel() * 2;
+        return guardColony.getPermissions().getRank(colony.getPermissions().getOwner()).isHostile()
+                && guardColony.getRaiderManager().getColonyRaidLevel() <= colony.getRaiderManager().getColonyRaidLevel() * 2;
     }
 
     /**
