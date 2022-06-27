@@ -921,6 +921,10 @@ public final class ColonyView implements IColonyView
         {
             citizens.put(citizen.getId(), citizen);
         }
+        else
+        {
+            Log.getLogger().warn("Null citizen!!!");
+        }
 
         return null;
     }
